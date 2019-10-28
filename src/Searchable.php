@@ -8,9 +8,11 @@ use DucCnzj\EsBuilder\Contracts\BuilderInterface;
 
 trait Searchable
 {
-    public static function search(Filter $filter):BuilderInterface
+    public static function search(Filter $filter = null):BuilderInterface
     {
-        return $filter->apply(app(BuilderInterface::class, ['model' => new static]));
+        $builder = app(BuilderInterface::class, ['model' => new static]);
+        
+        return is_null($filter) ? $builder : $filter->apply($builder);
     }
 
     public function searchableUsing()
