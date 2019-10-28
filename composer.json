@@ -1,0 +1,40 @@
+{
+    "name": "duc_cnzj\/es-builder",
+    "description": "Package description here.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "神符",
+            "email": "1025434218@qq.com"
+        }
+    ],
+    "require": {
+        "elasticsearch/elasticsearch": "^7.3",
+        "mainto/himo-rpc-framework": "^0.1.14"
+    },
+    "autoload": {
+        "psr-4": {
+            "DucCnzj\\EsBuilder\\": "src"
+        }
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.2"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "DucCnzj\\EsBuilder\\BuilderServiceProvider"
+            ]
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        },
+        "mainto": {
+            "type": "composer",
+            "url": "https://composer.code.hzmantu.com"
+        }
+    }
+}
