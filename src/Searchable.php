@@ -17,7 +17,7 @@ trait Searchable
 
     public function searchableUsing()
     {
-        $hosts = config('es.host', ['http://localhost:9200']);
+        $hosts = config('es.hosts', ['http://localhost:9200']);
 
         return ClientBuilder::create()
             ->setHosts($hosts)
