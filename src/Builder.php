@@ -5,13 +5,24 @@ namespace DucCnzj\EsBuilder;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
 use DucCnzj\EsBuilder\Contracts\BuilderInterface;
 
+/**
+ * Class Builder
+ * @package DucCnzj\EsBuilder
+ */
 class Builder implements BuilderInterface
 {
+    /**
+     * @var string
+     */
     protected $nullableDate = '1970-01-01T00:00:00+08:00';
 
+    /**
+     * @var array
+     */
     protected $operators = [
         '>'  => 'gt',
         '>=' => 'gte',
@@ -19,34 +30,80 @@ class Builder implements BuilderInterface
         '<=' => 'lte',
     ];
 
+    /**
+     * @var Model
+     */
     protected $model;
 
+    /**
+     * @var array
+     */
     protected $with = [];
 
+    /**
+     * @var array
+     */
     protected $where = [];
 
+    /**
+     * @var array
+     */
     protected $whereNot = [];
 
+    /**
+     * @var array
+     */
     protected $sort = [];
 
+    /**
+     * @var bool
+     */
     protected $withTrash = false;
 
+    /**
+     * @var array
+     */
     protected $source = [];
 
+    /**
+     * @var array
+     */
     protected $range = [];
 
+    /**
+     * @var array
+     */
     protected $regexp = [];
 
+    /**
+     * @var
+     */
     protected $perPage;
 
+    /**
+     * @var int
+     */
     protected $page = 1;
 
+    /**
+     * @var bool
+     */
     protected $paginate = true;
 
+    /**
+     * @var int
+     */
     protected $from = 0;
 
+    /**
+     * @var int
+     */
     protected $size = 15;
 
+    /**
+     * Builder constructor.
+     * @param Model $model
+     */
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -61,6 +118,20 @@ class Builder implements BuilderInterface
     public function with($relations)
     {
         $this->with = is_array($relations) ? $relations : func_get_args();
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
+    public function withTrashed()
+    {
+        if (in_array(SoftDeletes::class, trait_uses_recursive($this->model))) {
+            $this->withTrash = true;
+        }
 
         return $this;
     }
@@ -228,16 +299,34 @@ class Builder implements BuilderInterface
         return $this->model->searchableUsing();
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return $this
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     public function __call($name, $arguments)
     {
         return $this;
     }
 
+    /**
+     * @param string $operator
+     * @return bool
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function invalidOperator(string $operator)
     {
         return in_array($operator, array_keys($this->operators));
     }
 
+    /**
+     * @return array
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function buildEsParams()
     {
         if (! $this->paginate) {
@@ -274,6 +363,10 @@ class Builder implements BuilderInterface
         return $params;
     }
 
+    /**
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function prepareAttributes()
     {
         $this->ensureTrash();
@@ -283,11 +376,19 @@ class Builder implements BuilderInterface
         $this->prepareRange();
     }
 
+    /**
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function prepareWhere()
     {
         $this->where = $this->prepare($this->where);
     }
 
+    /**
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function prepareOffset()
     {
         if (! $this->paginate) {
@@ -303,11 +404,19 @@ class Builder implements BuilderInterface
             );
     }
 
+    /**
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function prepareWhereNot()
     {
         $this->whereNot = $this->prepare($this->whereNot);
     }
 
+    /**
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function prepareRange()
     {
         $ranges = collect($this->range ?? [])
@@ -328,6 +437,10 @@ class Builder implements BuilderInterface
             })->values()->toArray();
     }
 
+    /**
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     private function ensureTrash()
     {
         if (! $this->withTrash) {
@@ -339,6 +452,11 @@ class Builder implements BuilderInterface
         }
     }
 
+    /**
+     * @return string
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     public function nullableDate()
     {
         if (method_exists($this->model, 'nullableDate')) {
@@ -348,6 +466,12 @@ class Builder implements BuilderInterface
         return $this->nullableDate;
     }
 
+    /**
+     * @param array $attributes
+     * @return array
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     public function prepare(array $attributes)
     {
         return collect($attributes)

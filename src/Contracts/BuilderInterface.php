@@ -14,6 +14,13 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface BuilderInterface
 {
     /**
+     * @return mixed
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
+    public function withTrashed ();
+
+    /**
      * @param $relations
      * @return BuilderInterface
      *
