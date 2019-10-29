@@ -67,6 +67,14 @@ interface BuilderInterface
 
     /**
      * @param array $columns
+     * @return mixed
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
+    public function first(array $columns = ['*']);
+
+    /**
+     * @param array $columns
      * @return Collection
      *
      * @author 神符 <1025434218@qq.com>

@@ -231,6 +231,17 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
+    public function first(array $columns = ['*'])
+    {
+        return $this->get($columns)->first();
+    }
+
+    /**
+     * @param array $columns
+     * @return mixed
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
     public function get(array $columns = ['*'])
     {
         $this->paginate = false;
