@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\BuilderTest;
+namespace DucCnzj\EsBuilder\Tests\BuilderTest;
 
-use Tests\User;
-use Tests\TestCase;
 use DucCnzj\EsBuilder\Builder;
+use DucCnzj\EsBuilder\Tests\User;
+use DucCnzj\EsBuilder\Tests\TestCase;
 
 class BuilderTest extends TestCase
 {

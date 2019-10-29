@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace DucCnzj\EsBuilder\Tests;
 
 use DucCnzj\EsBuilder\BuilderServiceProvider;
 
