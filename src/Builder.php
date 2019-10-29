@@ -173,9 +173,9 @@ class Builder implements BuilderInterface
             return $this;
         }
 
-        if (strtolower($operator ?? '') == 'like') {
+        if (strtolower($operator) == 'like') {
             $value = str_replace('%', '.*', $value);
-            $this->regexp[] = [$field => $value];
+            $this->regexp[] = ['field' => $field, 'value' => $value];
 
             return $this;
         }
@@ -348,7 +348,7 @@ class Builder implements BuilderInterface
             'body'  => [
                 'query' => [
                     'bool' => [
-                        'must'     => array_merge($this->where, $this->range),
+                        'must'     => array_merge($this->where, $this->range, $this->regexp),
                         'must_not' => $this->whereNot,
                     ],
                 ],
@@ -376,6 +376,7 @@ class Builder implements BuilderInterface
         $this->prepareWhereNot();
         $this->prepareOffset();
         $this->prepareRange();
+        $this->prepareRegexp();
     }
 
     /**
@@ -437,6 +438,27 @@ class Builder implements BuilderInterface
                     'range' => [$key => $item],
                 ];
             })->values()->toArray();
+    }
+
+    /**
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
+    protected function prepareRegexp()
+    {
+        $this->regexp = collect($this->regexp)
+            ->map(function ($item) {
+                return
+                    [
+                        'regexp' => [
+                            $item['field'] => [
+                                'value' => $item['value'],
+                            ],
+                        ],
+                    ];
+            })
+            ->values()
+            ->toArray();
     }
 
     /**

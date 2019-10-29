@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "DucCnzj\\EsBuilder\\Tests\\": "tests"
+            "Tests\\": "tests"
         }
     },
     "require-dev": {

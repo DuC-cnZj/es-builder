@@ -1,10 +1,10 @@
 <?php
 
-namespace DucCnzj\EsBuilder\Tests;
+namespace Tests;
 
 use DucCnzj\EsBuilder\BuilderServiceProvider;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
     protected function setUp(): void
     {
