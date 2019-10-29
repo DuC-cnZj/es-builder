@@ -1,8 +1,8 @@
 <?php
 $header = <<<EOF
-This file is part of the duccnzj//es-builder.
+This file is part of the duccnzj/es-builder.
 
-(c) 神符 <1025434218@qq.com>
+(c) duc <1025434218@qq.com>
 
 This source file is subject to the MIT license that is bundled.
 EOF;

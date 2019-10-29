@@ -3,8 +3,8 @@
 namespace DucCnzj\EsBuilder\Filters;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use Mainto\RpcServer\RpcServer\RpcContext;
 use DucCnzj\EsBuilder\Contracts\BuilderInterface;
 
 /**
@@ -24,12 +24,12 @@ abstract class Filter
     protected $prefix = '';
 
     /**
-     * @var RpcContext
+     * @var Request
      */
     protected $request;
 
     /**
-     * @var BuilderInterface
+     * @var BuilderInterface|Builder
      */
     protected $builder;
 
@@ -45,18 +45,18 @@ abstract class Filter
 
     /**
      * Filters constructor.
-     * @param RpcContext $request
+     * @param Request $request
      */
-    public function __construct(RpcContext $request)
+    public function __construct($request)
     {
         $this->request = $request;
     }
 
     /**
      * @param BuilderInterface $builder
-     * @return BuilderInterface
+     * @return BuilderInterface|Builder
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function apply($builder)
     {
@@ -76,7 +76,7 @@ abstract class Filter
     /**
      * @return array
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function getFilters()
     {
@@ -88,7 +88,7 @@ abstract class Filter
     /**
      * @return array
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     private function getKeys(): array
     {
@@ -109,7 +109,7 @@ abstract class Filter
      * @param array|mixed $fields
      * @return $this
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function only($fields)
     {
@@ -128,7 +128,7 @@ abstract class Filter
      * @param string $prefix
      * @return $this
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function withPrefix(string $prefix = '')
     {
@@ -142,7 +142,7 @@ abstract class Filter
      * @param array $args
      * @return $this
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function renameAs(...$args)
     {
@@ -165,7 +165,7 @@ abstract class Filter
      * @param $key
      * @return string
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function resolveMethod($key): string
     {

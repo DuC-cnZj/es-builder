@@ -116,7 +116,7 @@ class Builder implements BuilderInterface
      * @param $relations
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function with($relations)
     {
@@ -128,7 +128,7 @@ class Builder implements BuilderInterface
     /**
      * @return $this
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function withTrashed()
     {
@@ -145,7 +145,7 @@ class Builder implements BuilderInterface
      * @param $value
      * @return BuilderInterface
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function where(string $field, $operator = null, $value = null)
     {
@@ -188,7 +188,7 @@ class Builder implements BuilderInterface
      * @param array $value
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function whereNotIn(string $field, array $value)
     {
@@ -202,7 +202,7 @@ class Builder implements BuilderInterface
      * @param array $value
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function whereIn(string $field, array $value)
     {
@@ -216,7 +216,7 @@ class Builder implements BuilderInterface
      * @param string $direction
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function orderBy(string $field, $direction = 'asc')
     {
@@ -229,7 +229,7 @@ class Builder implements BuilderInterface
      * @param array $columns
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function first(array $columns = ['*'])
     {
@@ -240,7 +240,7 @@ class Builder implements BuilderInterface
      * @param array $columns
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function get(array $columns = ['*'])
     {
@@ -281,7 +281,7 @@ class Builder implements BuilderInterface
      * @param int $page
      * @return LengthAwarePaginator
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function paginate(int $perPage = 15, $columns = ['*'], $page = 1)
     {
@@ -306,7 +306,7 @@ class Builder implements BuilderInterface
     /**
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function engine()
     {
@@ -317,7 +317,7 @@ class Builder implements BuilderInterface
      * @param string $operator
      * @return bool
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function invalidOperator(string $operator)
     {
@@ -327,7 +327,7 @@ class Builder implements BuilderInterface
     /**
      * @return array
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function buildEsParams()
     {
@@ -367,7 +367,7 @@ class Builder implements BuilderInterface
 
     /**
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function prepareAttributes()
     {
@@ -380,7 +380,7 @@ class Builder implements BuilderInterface
 
     /**
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function prepareWhere()
     {
@@ -389,7 +389,7 @@ class Builder implements BuilderInterface
 
     /**
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function prepareOffset()
     {
@@ -408,7 +408,7 @@ class Builder implements BuilderInterface
 
     /**
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function prepareWhereNot()
     {
@@ -417,7 +417,7 @@ class Builder implements BuilderInterface
 
     /**
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function prepareRange()
     {
@@ -441,7 +441,7 @@ class Builder implements BuilderInterface
 
     /**
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function ensureTrash()
     {
@@ -457,7 +457,7 @@ class Builder implements BuilderInterface
     /**
      * @return string
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function nullableDate()
     {
@@ -472,7 +472,7 @@ class Builder implements BuilderInterface
      * @param array $attributes
      * @return array
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     protected function prepare(array $attributes)
     {

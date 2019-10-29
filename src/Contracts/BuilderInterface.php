@@ -16,7 +16,7 @@ interface BuilderInterface
     /**
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function withTrashed ();
 
@@ -24,7 +24,7 @@ interface BuilderInterface
      * @param $relations
      * @return BuilderInterface
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function with($relations);
 
@@ -34,7 +34,7 @@ interface BuilderInterface
      * @param $value
      * @return BuilderInterface
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function where(string $column, $operator = null, $value = null);
 
@@ -43,7 +43,7 @@ interface BuilderInterface
      * @param array $value
      * @return BuilderInterface
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function whereNotIn(string $field, array $value);
 
@@ -52,7 +52,7 @@ interface BuilderInterface
      * @param array $value
      * @return BuilderInterface
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function whereIn(string $field, array $value);
 
@@ -61,7 +61,7 @@ interface BuilderInterface
      * @param string $direction
      * @return BuilderInterface
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function orderBy(string $field, $direction = 'asc');
 
@@ -69,7 +69,7 @@ interface BuilderInterface
      * @param array $columns
      * @return mixed
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function first(array $columns = ['*']);
 
@@ -77,7 +77,7 @@ interface BuilderInterface
      * @param array $columns
      * @return Collection
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function get(array $columns = ['*']);
 
@@ -87,7 +87,7 @@ interface BuilderInterface
      * @param int $page
      * @return LengthAwarePaginator
      *
-     * @author 神符 <1025434218@qq.com>
+     * @author duc <1025434218@qq.com>
      */
     public function paginate(int $perPage = 15, $columns = ['*'], $page = 1);
 }
