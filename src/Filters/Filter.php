@@ -24,7 +24,7 @@ abstract class Filter
     protected $prefix = '';
 
     /**
-     * @var Request
+     * @var Request|mixed
      */
     protected $request;
 
@@ -45,7 +45,7 @@ abstract class Filter
 
     /**
      * Filters constructor.
-     * @param Request $request
+     * @param Request|mixed $request
      */
     public function __construct($request)
     {
