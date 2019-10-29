@@ -253,24 +253,7 @@ class Builder implements BuilderInterface
 
         $res = $this->engine()->search($this->buildEsParams());
         $data = data_get($res, 'hits.hits.*._source', []);
-
-        $class = get_class($this->model);
-
-        /** @var Model $model */
-        $model = new $class;
-        $dates = $model->getDates();
-
-        $collectData = collect($data)->map(function ($data) use ($dates) {
-            foreach ($dates as $date) {
-                if (isset($data[$date])) {
-                    $data[$date] = Carbon::parse($data[$date]);
-                }
-            }
-
-            return $data;
-        })->toArray();
-
-        $data = $model->hydrate($collectData);
+        $data = $this->newModelCollection($data);
 
         return $this->with ? $data->load($this->with) : $data;
     }
@@ -296,6 +279,9 @@ class Builder implements BuilderInterface
 
         $items = data_get($res, 'hits.hits.*._source', []);
         $total = data_get($res, 'hits.total.value', 0);
+
+        $items = $this->newModelCollection($items);
+        $items = $this->with ? $items->load($this->with) : $items;
 
         return (new LengthAwarePaginator($items, $total, $this->perPage, $this->page, [
             'path'     => Paginator::resolveCurrentPath(),
@@ -521,5 +507,46 @@ class Builder implements BuilderInterface
             })
             ->values()
             ->toArray();
+    }
+
+    /**
+     * @param $data
+     * @return mixed
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
+    protected function newModelCollection($data)
+    {
+        $class = get_class($this->model);
+        $model = new $class;
+        $dates = $model->getDates();
+
+        $collectData = $this->transformDate($data, $dates);
+
+        $data = $model->hydrate($collectData);
+
+        return $data;
+    }
+
+    /**
+     * @param $items
+     * @param array $dates
+     * @return array
+     *
+     * @author 神符 <1025434218@qq.com>
+     */
+    protected function transformDate($items, array $dates): array
+    {
+        $collectData = collect($items)->map(function ($data) use ($dates) {
+            foreach ($dates as $date) {
+                if (isset($data[$date])) {
+                    $data[$date] = Carbon::parse($data[$date]);
+                }
+            }
+
+            return $data;
+        })->toArray();
+
+        return $collectData;
     }
 }
