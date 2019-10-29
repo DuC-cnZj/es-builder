@@ -5,6 +5,7 @@ namespace DucCnzj\EsBuilder;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Traits\Macroable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Pagination\LengthAwarePaginator;
 use DucCnzj\EsBuilder\Contracts\BuilderInterface;
@@ -15,6 +16,8 @@ use DucCnzj\EsBuilder\Contracts\BuilderInterface;
  */
 class Builder implements BuilderInterface
 {
+    use Macroable;
+
     /**
      * @var string
      */
@@ -164,7 +167,7 @@ class Builder implements BuilderInterface
             return $this;
         }
 
-        if ($operator == '!=') {
+        if (in_array($operator, ['!=', '<>'])) {
             $this->whereNotIn($field, [$value]);
 
             return $this;
@@ -294,21 +297,9 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function engine()
+    protected function engine()
     {
         return $this->model->searchableUsing();
-    }
-
-    /**
-     * @param $name
-     * @param $arguments
-     * @return $this
-     *
-     * @author 神符 <1025434218@qq.com>
-     */
-    public function __call($name, $arguments)
-    {
-        return $this;
     }
 
     /**
@@ -317,7 +308,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function invalidOperator(string $operator)
+    protected function invalidOperator(string $operator)
     {
         return in_array($operator, array_keys($this->operators));
     }
@@ -327,7 +318,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function buildEsParams()
+    protected function buildEsParams()
     {
         if (! $this->paginate) {
             $this->from = 0;
@@ -367,7 +358,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function prepareAttributes()
+    protected function prepareAttributes()
     {
         $this->ensureTrash();
         $this->prepareWhere();
@@ -380,7 +371,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function prepareWhere()
+    protected function prepareWhere()
     {
         $this->where = $this->prepare($this->where);
     }
@@ -389,7 +380,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function prepareOffset()
+    protected function prepareOffset()
     {
         if (! $this->paginate) {
             return;
@@ -408,7 +399,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function prepareWhereNot()
+    protected function prepareWhereNot()
     {
         $this->whereNot = $this->prepare($this->whereNot);
     }
@@ -417,7 +408,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function prepareRange()
+    protected function prepareRange()
     {
         $ranges = collect($this->range ?? [])
             ->reduce(function ($carry, $item) {
@@ -441,7 +432,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    private function ensureTrash()
+    protected function ensureTrash()
     {
         if (! $this->withTrash) {
             $this->where['deleted_at'] = [
@@ -457,7 +448,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    public function nullableDate()
+    protected function nullableDate()
     {
         if (method_exists($this->model, 'nullableDate')) {
             return $this->model->nullableDate();
@@ -472,7 +463,7 @@ class Builder implements BuilderInterface
      *
      * @author 神符 <1025434218@qq.com>
      */
-    public function prepare(array $attributes)
+    protected function prepare(array $attributes)
     {
         return collect($attributes)
             ->map(function ($filter, $key) {
